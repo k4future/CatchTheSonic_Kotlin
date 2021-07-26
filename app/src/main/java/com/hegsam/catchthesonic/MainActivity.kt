@@ -18,7 +18,7 @@ import kotlin.random.Random
 class MainActivity : AppCompatActivity() {
     //CONFIG
     private var score : Int = 0 //Startup Score DEFAULT:0
-    private val time : Int = 31 //Startup Time In Seconds DEFAULT:30
+    private val time : Int = 310 //Startup Time In Seconds DEFAULT:31
     private val sonicSpeed : Long = 500 //Sonic Respawn Speed In Miliseconds, 1000 Milisecond = 1 Second DEFAULT : 500
     private val timeMultiplier : Float = 1f //DEFAULT:1f
     /* Examples
@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
     private var gameOver = false
     private var handler = Handler(Looper.getMainLooper())
     private lateinit var runnable: Runnable
-    private var imageViewList = ArrayList<ImageView>()
-    private var lastVisibleSonicIndex = ArrayList<Int>()
+    private var imageViewList = ArrayList<ImageView>(8)
+    private var spawnedIndices = ArrayList<Int>(8)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                textView_Time.text = getString(R.string.time_text,time.toString())
+                textView_Time.text = getString(R.string.time_text,"0")
 
                 //PREVENT GETTING SCORES WHEN GAME IS OVER
                 gameOver = true
@@ -128,13 +128,34 @@ class MainActivity : AppCompatActivity() {
                 imageViewList.forEach {
                     it.visibility = View.INVISIBLE
                 }
-                val generatedIndex = Random.nextInt(9)
-                imageViewList[generatedIndex].visibility = View.VISIBLE
+                imageViewList[returnRandomIndex()].visibility = View.VISIBLE
                 handler.postDelayed(this,sonicSpeed)
             }
         }
 
         handler.post(runnable)
 
+    }
+
+    private fun returnRandomIndex() : Int
+    {
+        var generatedIndex = Random.nextInt(9)
+        for (i in spawnedIndices)
+        {
+            if (spawnedIndices.contains(generatedIndex))
+            {
+                while (spawnedIndices.contains(generatedIndex))
+                {
+                    generatedIndex = Random.nextInt(9)
+                }
+            }
+        }
+        if (spawnedIndices.size == 8)
+        {
+            spawnedIndices.clear()
+        }
+        spawnedIndices.add(generatedIndex)
+        println(generatedIndex)
+        return generatedIndex
     }
 }
