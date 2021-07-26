@@ -18,7 +18,7 @@ import kotlin.random.Random
 class MainActivity : AppCompatActivity() {
     //CONFIG
     private var score : Int = 0 //Startup Score DEFAULT:0
-    private val time : Int = 310 //Startup Time In Seconds DEFAULT:31
+    private val time : Int = 31 //Startup Time In Seconds DEFAULT:31
     private val sonicSpeed : Long = 500 //Sonic Respawn Speed In Miliseconds, 1000 Milisecond = 1 Second DEFAULT : 500
     private val timeMultiplier : Float = 1f //DEFAULT:1f
     /* Examples
