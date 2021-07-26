@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_text">Skor: %1$s</string>
+    <string name="time_text">Süre: %1$s</string>
+    <string name="gameover_text">Oyun Bitti</string>
+    <string name="playagain_text">Tekrar oynamak istiyor musunuz?</string>
+    <string name="yes_text">Evet</string>
+    <string name="no_text">Hayır</string>
+</resources>
