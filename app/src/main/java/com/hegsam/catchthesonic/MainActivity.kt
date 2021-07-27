@@ -18,17 +18,8 @@ import kotlin.random.Random
 class MainActivity : AppCompatActivity() {
     //CONFIG
     private var score : Int = 0 //Startup Score DEFAULT:0
-    private val time : Int = 31 //Startup Time In Seconds DEFAULT:31
+    private val time : Int = 30 //Startup Time In Seconds DEFAULT:30
     private val sonicSpeed : Long = 500 //Sonic Respawn Speed In Miliseconds, 1000 Milisecond = 1 Second DEFAULT : 500
-    private val timeMultiplier : Float = 1f //DEFAULT:1f
-    /* Examples
-    1x = 1f
-    1.25x = 1.25f
-    1.5x = 1.5f
-    1.75x = 1.75f
-    2x = 2f
-    */
-
     //CONFIG END
 
     private var gameOver = false
@@ -36,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var runnable: Runnable
     private var imageViewList = ArrayList<ImageView>(8)
     private var spawnedIndices = ArrayList<Int>(8)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         randomSonic()
 
-        object : CountDownTimer((time*1000).toLong(),(timeMultiplier*1000).toLong()){
+        object : CountDownTimer((time*1000).toLong(),1000){
             override fun onTick(millisUntilFinished: Long) {
                 textView_Time.text = getString(R.string.time_text,(millisUntilFinished/1000).toString())
             }
