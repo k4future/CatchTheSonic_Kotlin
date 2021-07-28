@@ -19,10 +19,12 @@ class MainActivity : AppCompatActivity() {
     //CONFIG
     private var score : Int = 0 //Startup Score DEFAULT:0
     private val time : Int = 30 //Startup Time In Seconds DEFAULT:30
-    private val sonicSpeed : Long = 500 //Sonic Respawn Speed In Miliseconds, 1000 Milisecond = 1 Second DEFAULT : 500
+    private val sonicSpeed : Long = 2000 //Sonic Respawn Speed In Miliseconds, 1000 Milisecond = 1 Second DEFAULT : 500
     //CONFIG END
 
     private var gameOver = false
+    private var lastView : View? = null
+    private var coolDown = false
     private var handler = Handler(Looper.getMainLooper())
     private lateinit var runnable: Runnable
     private var imageViewList = ArrayList<ImageView>(8)
@@ -103,10 +105,13 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickSonic(view : View)
     {
-        if (!gameOver)
+        if (!gameOver && !coolDown)
         {
             score+=1
             textView_Score.text = getString(R.string.score_text,score.toString())
+            coolDown = true
+            view.isEnabled = false
+            lastView = view
         }
     }
 
@@ -120,9 +125,13 @@ class MainActivity : AppCompatActivity() {
                 }
                 imageViewList[returnRandomIndex()].visibility = View.VISIBLE
                 handler.postDelayed(this,sonicSpeed)
+                coolDown = false
+
+                lastView.let {
+                    it?.isEnabled = true
+                }
             }
         }
-
         handler.post(runnable)
 
     }
