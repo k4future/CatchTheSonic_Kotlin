@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     //CONFIG
     private var score : Int = 0 //Startup Score DEFAULT:0
     private val time : Int = 30 //Startup Time In Seconds DEFAULT:30
-    private val sonicSpeed : Long = 2000 //Sonic Respawn Speed In Miliseconds, 1000 Milisecond = 1 Second DEFAULT : 500
+    private val sonicSpeed : Long = 500 //Sonic Respawn Speed In Miliseconds, 1000 Milisecond = 1 Second DEFAULT : 500
     //CONFIG END
 
     private var gameOver = false
